@@ -20,8 +20,8 @@
           <td>{{$diarista->nome_completo}}</td>
           <td>{{$diarista->telefone}}</td>
           <td>
-            <a href="#">Aditar</a>
-            <a href="#">Excluir</a>
+            <a href="{{ route('diaristas.edit', $diarista) }}" class="btn btn-success">Aditar</a>
+            <a href="#" class="btn btn-danger">Excluir</a>
           </td>
         </tr>
         @empty
