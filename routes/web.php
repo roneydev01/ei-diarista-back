@@ -15,3 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [DiaristaController::class, 'index'])->name('diaristas.index');
+Route::get('/diaristas/create', [DiaristaController::class, 'create'])->name('diaristas.create');
+Route::post('/diaristas', [DiaristaController::class, 'store'])->name('diaristas.store');

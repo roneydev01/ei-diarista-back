@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Diarista extends Model
 {
     use HasFactory;
+
+    //Campos permitidos para a inclusão
+    protected $fillable = ['nome_completo', 'cpf', 'email', 'telefone', 'logradouro', 'numero', 'bairro', 'cidade', 'estado', 'cep', 'codigo_ibge', 'foto_usuario'];
 }

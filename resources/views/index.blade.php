@@ -61,7 +61,7 @@
           @endforelse
         </tbody>
       </table>
-      <a href="#" class="btn btn-primary" role="button">Nova Diarista</a>
+      <a href="{{route('diaristas.create')}}" class="btn btn-primary" role="button">Nova Diarista</a>
     </div>
 
     <!-- Optional JavaScript; choose one of the two! -->
