@@ -51,8 +51,17 @@ class DiaristaController extends Controller
         if ($request->hasFile('foto_usuario')) {
             $dados['foto_usuario'] = $request->foto_usuario->store('public');
         }
-        
+
         $diarista->update($dados);
+
+        return redirect()->route('diaristas.index');
+    }
+
+    public function destroy(int $id)
+    {
+        $diarista = Diarista::findOrFail($id);
+
+        $diarista->delete();
 
         return redirect()->route('diaristas.index');
     }
