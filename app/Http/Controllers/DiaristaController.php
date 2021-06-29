@@ -23,8 +23,16 @@ class DiaristaController extends Controller
     public function store(Request $request)
     {
         $dados = $request->except('_token');
+
+        //Remove caracteres das mascaras
+        $dados['cpf'] = $this->removeMask($dados['cpf']);
+        $dados['cep'] = $this->removeMask($dados['cep']);
+        $dados['telefone'] = $this->removeMask($dados['telefone']);
+
         //Metodo para fazer upload e salvar a foto
-        $dados['foto_usuario'] = $request->foto_usuario->store('public');
+        if ($request->hasFile('foto_usuario')) {
+            $dados['foto_usuario'] = $request->foto_usuario->store('public');
+        }
 
         Diarista::create($dados);
 
@@ -47,6 +55,12 @@ class DiaristaController extends Controller
         $diarista = Diarista::findOrFail($id);
 
         $dados = $request->except(['_token', '_method']);
+        
+        //Remove caracteres das mascaras
+        $dados['cpf'] = $this->removeMask($dados['cpf']);
+        $dados['cep'] = $this->removeMask($dados['cep']);
+        $dados['telefone'] = $this->removeMask($dados['telefone']);
+
         //Verifica se tem imagem
         if ($request->hasFile('foto_usuario')) {
             $dados['foto_usuario'] = $request->foto_usuario->store('public');
@@ -64,5 +78,10 @@ class DiaristaController extends Controller
         $diarista->delete();
 
         return redirect()->route('diaristas.index');
+    }
+
+    protected function removeMask(string $data)
+    {
+        return $data = str_replace(['.','-','(',')',' '], '',$data);
     }
 }
