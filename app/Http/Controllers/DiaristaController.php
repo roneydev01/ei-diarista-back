@@ -6,7 +6,12 @@ use App\Models\Diarista;
 use Illuminate\Http\Request;
 
 class DiaristaController extends Controller
-{
+{   
+    /**
+     *Lista as Diaris 
+     *
+     * @return void
+     */
     public function index()
     {
         $diaristas = Diarista::get();
@@ -15,11 +20,22 @@ class DiaristaController extends Controller
         ]);
     }
 
+    /**
+     * Mostra oo formulário de criação
+     * 
+     * @return void 
+     */
     public function create()
     {
         return view('create');
     }
 
+    /**
+     * Cria uma diarista no DB
+     * 
+     * @param Request $request
+     * @return void
+     */
     public function store(Request $request)
     {
         $dados = $request->except('_token');
@@ -39,6 +55,12 @@ class DiaristaController extends Controller
         return redirect()->route('diaristas.index');
     }
 
+    /**
+     * Mostra o formulário de edição populado
+     * 
+     * @param Integer $id
+     * @return void
+     */
     public function edit(int $id)
     {
         //findOrFail retorno 404 caso não encontre
@@ -49,6 +71,13 @@ class DiaristaController extends Controller
         ]);
     }
 
+    /**
+     * Atualiza uma diarista no DB
+     * 
+     * @param Integer $id
+     * @param Request $request
+     * @return void
+     */
     public function update(Request $request, int $id)
     {
         //findOrFail retorno 404 caso não encontre
@@ -71,6 +100,12 @@ class DiaristaController extends Controller
         return redirect()->route('diaristas.index');
     }
 
+    /**
+     * Apaga uma diarista do DB
+     * 
+     * @param Integer $id
+     * @return void
+     */
     public function destroy(int $id)
     {
         $diarista = Diarista::findOrFail($id);
@@ -80,6 +115,12 @@ class DiaristaController extends Controller
         return redirect()->route('diaristas.index');
     }
 
+     /**
+     * Remove os caracteres das mascaras cpf, cep e telefone
+     * 
+     * @param string $data
+     * @return string
+     */
     protected function removeMask(string $data)
     {
         return $data = str_replace(['.','-','(',')',' '], '',$data);
