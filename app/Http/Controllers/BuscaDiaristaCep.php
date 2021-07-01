@@ -25,6 +25,12 @@ class BuscaDiaristaCep extends Controller
            return response()->json(['erro'=>'Cep Invalido'], 400);
        }
         
-       return $diaristas = Diarista::buscaPorCodigoIbge($endereco['ibge']);
+       $diaristas = Diarista::buscaPorCodigoIbge($endereco['ibge']);
+       $quantidade_diaristas = Diarista::quantidadePorCodigoIbge($endereco['ibge']);
+
+       return [
+           'diaristas'=> $diaristas,
+           'quantidade_diaristas'=>$quantidade_diaristas
+       ];
     }
 }
