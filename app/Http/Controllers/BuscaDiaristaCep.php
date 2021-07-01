@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Diarista;
 use App\Services\ViaCEP;
 use Illuminate\Http\Request;
 
@@ -10,13 +11,20 @@ class BuscaDiaristaCep extends Controller
     /**
      * Handle the incoming request.
      * Metodo Invoke permite criar um controller com um única ação, ou seja apenas um metodo por controller
-     * O metodo Invoke irá buscas as Diaristas por CEP
+     * O metodo Invoke  através do cep recebido busca os dados do endereço e com o codigo de IBGE busca as diaristas da mesma área. 
      * 
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function __invoke(Request $request, ViaCEP $viaCEP)
     {
-        $viaCEP->buscar($request->cep);
+       $endereco = $viaCEP->buscar($request->cep);
+
+       //Verifica endereço
+       if ($endereco === false) {
+           return response()->json(['erro'=>'Cep Invalido'], 400);
+       }
+        
+       return $diaristas = Diarista::buscaPorCodigoIbge($endereco['ibge']);
     }
 }
