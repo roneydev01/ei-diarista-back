@@ -9,11 +9,30 @@ class Diarista extends Model
 {
     use HasFactory;
 
-    //Campos permitidos para a inclusão
+    /**
+     * Define os campos que podem ser gravados
+     * @var array
+     */
     protected $fillable = ['nome_completo', 'cpf', 'email', 'telefone', 'logradouro', 'numero', 'complemento', 'bairro', 'cidade', 'estado', 'cep', 'codigo_ibge', 'foto_usuario'];
+    
+    /**
+     * Define os campos que serão usados na serilização, ou seja, visivel quando converter para json e serem disponiveis na api
+     * @var array
+     */
+    protected $visible = ['nome_completo', 'cidade', 'foto_usuario'];
 
     /**
-     * Através do código do ibge busca as diaristas no banco
+     * Define caminho completo da imagem
+     * @param string $valor
+     * @return string 
+     */
+    public function getFotoUsuarioAttribute($valor)
+    {
+         return config('app.url') . '/' . $valor;
+    }
+
+    /**
+     * Busca as diaristas no banco por do código do ibge
      * 
      * @param int $codigoIbge
      * @return array 
@@ -24,7 +43,7 @@ class Diarista extends Model
     }
     
     /**
-     * Retorna a quandidade de diaristas a partir de 6
+     * Retorna a quandidade de diaristas por codigo ibge a partir de 6
      * 
      * @param int $codigoIbge
      * @return int 
