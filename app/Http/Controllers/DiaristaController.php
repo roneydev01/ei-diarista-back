@@ -3,12 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Diarista;
+use App\Services\ViaCEP;
 use Illuminate\Http\Request;
 
 class DiaristaController extends Controller
 {   
+
+    protected ViaCEP $viaCep;
+
+    public function __construct(ViaCEP $viaCep)
+    {
+        $this->viaCep = $viaCep;
+    }
+
     /**
-     *Lista as Diaris 
+     *Lista as Diaristaas 
      *
      * @return void
      */
@@ -44,6 +53,10 @@ class DiaristaController extends Controller
         $dados['cpf'] = $this->removeMask($dados['cpf']);
         $dados['cep'] = $this->removeMask($dados['cep']);
         $dados['telefone'] = $this->removeMask($dados['telefone']);
+
+        //Pega o codigo do ibge da classe busca cep
+        $dados['codigo_ibge'] = $this->viaCep->buscar($dados['cep'])['ibge'];
+
 
         //Metodo para fazer upload e salvar a foto
         if ($request->hasFile('foto_usuario')) {
@@ -89,6 +102,9 @@ class DiaristaController extends Controller
         $dados['cpf'] = $this->removeMask($dados['cpf']);
         $dados['cep'] = $this->removeMask($dados['cep']);
         $dados['telefone'] = $this->removeMask($dados['telefone']);
+        
+        //Pega o codigo do ibge da classe busca cep
+        $dados['codigo_ibge'] = $this->viaCep->buscar($dados['cep'])['ibge'];
 
         //Verifica se tem imagem
         if ($request->hasFile('foto_usuario')) {
