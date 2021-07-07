@@ -19,7 +19,12 @@ class Diarista extends Model
      * Define os campos que serão usados na serilização, ou seja, visivel quando converter para json e serem disponiveis na api
      * @var array
      */
-    protected $visible = ['nome_completo', 'cidade', 'foto_usuario'];
+    protected $visible = ['nome_completo', 'cidade', 'foto_usuario', 'reputacao'];
+
+    /**
+     * Adicionar campos virtual a serialização
+     */
+    protected $appends = ['reputacao'];
 
     /**
      * Define caminho completo da imagem
@@ -29,6 +34,16 @@ class Diarista extends Model
     public function getFotoUsuarioAttribute($valor)
     {
          return config('app.url') . '/' . $valor;
+    }
+
+    /**
+     * Define uma reputação randomica
+     * @param [type] $valor
+     * @return void
+     */
+    public function getReputacaoAttribute($valor)
+    {
+        return mt_rand(1, 5);
     }
 
     /**
