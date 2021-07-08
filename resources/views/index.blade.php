@@ -20,7 +20,7 @@
           <td>{{$diarista->nome_completo}}</td>
           <td>{{$diarista->telefone}}</td>
           <td>
-            <a href="{{ route('diaristas.edit', $diarista) }}" class="btn btn-success">Aditar</a>
+            <a href="{{ route('diaristas.edit', $diarista) }}" class="btn btn-success">Editar</a>
             <a href="{{ route('diaristas.destroy', $diarista) }}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
           </td>
         </tr>

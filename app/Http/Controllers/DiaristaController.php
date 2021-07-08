@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DiaristaRequest;
 use App\Models\Diarista;
 use App\Services\ViaCEP;
 use Illuminate\Http\Request;
@@ -45,7 +46,7 @@ class DiaristaController extends Controller
      * @param Request $request
      * @return void
      */
-    public function store(Request $request)
+    public function store(DiaristaRequest $request)
     {
         $dados = $request->except('_token');
 
@@ -91,7 +92,7 @@ class DiaristaController extends Controller
      * @param Request $request
      * @return void
      */
-    public function update(Request $request, int $id)
+    public function update(DiaristaRequest $request, int $id)
     {
         //findOrFail retorno 404 caso não encontre
         $diarista = Diarista::findOrFail($id);
