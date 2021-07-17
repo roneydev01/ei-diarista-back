@@ -5,6 +5,10 @@
 Este é a versão back-end, com criação de API e Área Adminstrativa realizada com o [Framework] [Laravel], [Bootstrap], [MySql] e consumindo a API do [ViaCEP](https://viacep.com.br).
 O projeto foi construído na Semana Multi Stack da [TreinaWeb](https://www.treinaweb.com.br).
 
+## Objetivo do projeto
+
+Realizar a busca de Profissionais de uma determinada região através do CEP.
+
 ## Início
 
 ### Pré-requisitos:
